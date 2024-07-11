@@ -7,6 +7,7 @@ import { ForceThemeProvider } from '@/components/utils/DarkModeContext'
 import { Message } from '@/design-system'
 import { Card } from '@/design-system/card'
 import { SearchField } from '@/design-system/field'
+import { SearchableSelectField } from '@/design-system/field/SearchableSelectField/SearchableSelectField'
 import { FocusStyle } from '@/design-system/global-style'
 import { ChevronIcon } from '@/design-system/icons'
 import { Grid } from '@/design-system/layout'
@@ -30,6 +31,7 @@ const StyledCard = styled(Card)`
 
 export function EntrepriseSearchField(props: {
 	label?: ReactNode
+	selectedValue: ReactNode
 	onValue?: () => void
 	onClear?: () => void
 	onSubmit?: (search: Entreprise | null) => void
@@ -71,7 +73,7 @@ export function EntrepriseSearchField(props: {
 	return (
 		<Grid container>
 			<Grid item xs={12}>
-				<SearchField
+				<SearchableSelectField
 					data-test-id="company-search-input"
 					state={state}
 					isSearchStalled={searchPending}
@@ -89,7 +91,7 @@ export function EntrepriseSearchField(props: {
 
 			<Grid item xs={12}>
 				<Appear unless={searchPending || !state.value}>
-					{state.value && !searchPending && (
+					{state.value && !searchPending && !props.selectedValue && (
 						<Results results={results} onSubmit={onSubmit} />
 					)}
 				</Appear>
